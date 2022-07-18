@@ -115,20 +115,24 @@ void app()
                 if (!input_texture.loadFromFile(address))
                     cout << "Error On Loading colored Image" << endl;
 
-                int inp_ = convert_string_to_int(event.text.unicode);
-                cout << "TextEntered -> " << inp_ << endl;
+                int input_column = convert_string_to_int(event.text.unicode) - 1;
+                cout << "TextEntered -> " << input_column << endl;
 
-                if (inp_ >=1 && inp_ <= 8)
+                if (input_column >= 0 && input_column <= 7)
                 {
+                    int pos = insert_piece(input_column, RED, matrix_8_8);
                     
-                    cout << "correct -> " << inp_ << endl;
-                    int pos = insert_piece(event.text.unicode - 48, RED, matrix_8_8);
-                    input_sprite.setTexture(input_texture);
-                    input_sprite.setPosition(x_square(event.text.unicode - 48), y_square(pos));
-                    window.draw(input_sprite);
-
+                    if (pos == -1)
+                    {
+                        cout << "row is full" << endl;
+                    }
+                    else
+                    {
+                        input_sprite.setTexture(input_texture);
+                        input_sprite.setPosition(x_square(input_column), y_square(pos));
+                        window.draw(input_sprite);
+                    }
                 }
-                
             }
         }
 
