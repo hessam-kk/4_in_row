@@ -55,7 +55,6 @@ void app()
     {
         sf::Sprite number_sprite;
         sf::Texture number_texture;
-        // address = 
         if (!number_texture.loadFromFile("../assets/row_n/" + to_string((i + 1)) + ".png"))
             cout << "Error On Loading empty squares Image" << endl;
 
@@ -107,7 +106,32 @@ void app()
                 window.close();
                 break;
             }
+
+            if (event.type == sf::Event::TextEntered)
+            {
+                sf::Sprite input_sprite;
+                sf::Texture input_texture;
+                string address = string("../assets/sq_") + string("blue") + string(".png");
+                if (!input_texture.loadFromFile(address))
+                    cout << "Error On Loading colored Image" << endl;
+
+                int inp_ = convert_string_to_int(event.text.unicode);
+                cout << "TextEntered -> " << inp_ << endl;
+
+                if (inp_ >=1 && inp_ <= 8)
+                {
+                    
+                    cout << "correct -> " << inp_ << endl;
+                    int pos = insert_piece(event.text.unicode - 48, RED, matrix_8_8);
+                    input_sprite.setTexture(input_texture);
+                    input_sprite.setPosition(x_square(event.text.unicode - 48), y_square(pos));
+                    window.draw(input_sprite);
+
+                }
+                
+            }
         }
+
         window.display();
     }
 }
