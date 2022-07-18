@@ -1,6 +1,14 @@
 #include<fstream>
 #include<iostream>
-#include"player.hpp"
+
+enum Color 
+{
+    RED ,
+    YELLOW ,
+    GREEN ,
+    BLUE ,
+    EMPTY
+};
 
 unsigned short int return_color_number(enum Color color)
 {
@@ -17,15 +25,17 @@ unsigned short int return_color_number(enum Color color)
 
         case BLUE:
             return 3;
+
+        case EMPTY :
+            return 4;
     }
 }
 
 
-void Write_To_File(unsigned short int all_moves ,const struct Player * first ,
-                                                 const struct Player * second)
+void Write_Player_Info_To_File(unsigned short int all_moves , enum Color player_1 , enum Color player_2)
 {
     std::ofstream file;
-    file.open("Inf.txt" , std::ios::out);
+    file.open("Player.txt" , std::ios::out);
 
 
     if (! file)
@@ -37,12 +47,35 @@ void Write_To_File(unsigned short int all_moves ,const struct Player * first ,
     }
     
     file << "moves : " << all_moves << std::endl;
-    file << "first player : " << first->player_number << " ";
-    file << return_color_number(first->color) << std::endl;
 
+    file << "player_1 : " << return_color_number(player_1) << std::endl;
 
-    file << "second player : " << second->player_number << " ";
-    file << return_color_number(second->color) << std::endl;
+    file << "player_2 : " << return_color_number(player_2) << std::endl;
 
     file.close();
+}
+
+
+void Write_Matrix_To_File(enum Color matrix_8_8[8][8])
+{
+    std::ofstream file;
+    file.open("Matrix.txt" , std::ios::out);
+
+    if (! file)
+    {
+        std::cerr << "Error opening file" << std::endl;
+        std::cerr << "Enter Any Key To Exit" << std::endl;
+        std::cin.ignore();
+        getchar();
+    }
+
+    for (int i = 0 ; i < 8 ; i++)
+    {
+        for (int j = 0 ; j < 8 ; j++)
+        {
+            file << return_color_number(matrix_8_8[i][j]) << " ";
+        }
+
+        file << std::endl;
+    }
 }
