@@ -4,14 +4,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 
-int x_square(int x)
-{
-    return 294 + (x * 60);
-}
-int y_square(int y)
-{
-    return 80 + (y * 60);
-}
+
 
 using namespace std;
 
