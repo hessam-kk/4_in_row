@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/app.hpp
+
+/mnt/c/Users/Hessam/Desktop/4_in_row/src/main.cpp
+app.hpp
+/mnt/c/Users/Hessam/Desktop/4_in_row/src/app.hpp
+
