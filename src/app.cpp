@@ -4,8 +4,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 
-#define window_x 800
-#define window_y 800
+#define window_x 1067
+#define window_y 600
 
 using namespace std;
 
@@ -19,8 +19,8 @@ void app()
         cout << "Error On Loading BackGround Image" << endl;
     sf::Sprite background_sprite;
     background_sprite.setTexture(background_texture);
-    // End Of Adding Background
     window.draw(background_sprite);
+    // End Of Adding Background
 
     while (window.isOpen())
     {
