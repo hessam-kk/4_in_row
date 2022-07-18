@@ -55,5 +55,5 @@ int x_square(const int x)
 
 int y_square(const int y)
 {
-    return 80 + (y * 60);
+    return 40 + (y * 60);
 }

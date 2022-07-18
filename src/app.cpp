@@ -48,7 +48,22 @@ void app()
     if (!green_texture.loadFromFile("../assets/sq_green.png"))
         cout << "Error On Loading green squares Image" << endl;
 
+    insert_piece(0, RED, matrix_8_8);
     // initialize the board
+
+    for (int i = 0; i < 8; i++)
+    {
+        sf::Sprite number_sprite;
+        sf::Texture number_texture;
+        // address = 
+        if (!number_texture.loadFromFile("../assets/row_n/" + to_string((i + 1)) + ".png"))
+            cout << "Error On Loading empty squares Image" << endl;
+
+        number_sprite.setTexture(number_texture);
+        number_sprite.setPosition(x_square(i), y_square(8));
+        window.draw(number_sprite);
+    }
+
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
