@@ -1,6 +1,14 @@
 #include<fstream>
 #include<iostream>
-#include"player.hpp"
+
+enum Color 
+{
+    RED ,
+    YELLOW ,
+    GREEN ,
+    BLUE ,
+    EMPTY
+};
 
 unsigned short int return_color_number(enum Color color)
 {
@@ -21,8 +29,7 @@ unsigned short int return_color_number(enum Color color)
 }
 
 
-void Write_To_File(unsigned short int all_moves ,const struct Player * first ,
-                                                 const struct Player * second)
+void Write_To_File(unsigned short int all_moves , enum Color player_1 , enum Color player_2)
 {
     std::ofstream file;
     file.open("Player.txt" , std::ios::out);
@@ -37,12 +44,10 @@ void Write_To_File(unsigned short int all_moves ,const struct Player * first ,
     }
     
     file << "moves : " << all_moves << std::endl;
-    file << "first player : " << first->player_number << " ";
-    file << return_color_number(first->color) << std::endl;
+    
+    file << "player_1 : " << return_color_number(player_1) << std::endl;
 
-
-    file << "second player : " << second->player_number << " ";
-    file << return_color_number(second->color) << std::endl;
+    file << "player_2 : " << return_color_number(player_2) << std::endl;
 
     file.close();
 }
