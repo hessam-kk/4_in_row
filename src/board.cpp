@@ -1,7 +1,9 @@
 #include "board.hpp"
 #include "datas.hpp"
 
-bool place_piece(int column, enum Color color)
+bool insert_piece(const int column,
+                const enum Color color,
+                enum Color board[8][8])
 {
     // wrong column number
     if(column < 0 || column > 7)
@@ -21,4 +23,14 @@ bool place_piece(int column, enum Color color)
         }
     }
     return false;
+}
+
+int x_square(const int x)
+{
+    return 294 + (x * 60);
+}
+
+int y_square(const int y)
+{
+    return 80 + (y * 60);
 }
