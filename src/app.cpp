@@ -4,9 +4,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 
-#define window_x 1067
-#define window_y 600
-
 int x_square(int x)
 {
     return 294 + (x * 60);
