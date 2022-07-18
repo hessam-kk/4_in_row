@@ -1,4 +1,5 @@
 #pragma once
+#include "datas.hpp"
 
 int insert_piece(const int column, const enum Color color, enum Color board[8][8]);
 bool reset_board(enum Color board[8][8]);

@@ -1,7 +1,9 @@
 #include "datas.hpp"
 #include "board.hpp"
+
 #include <iostream>
 #include <string>
+
 int insert_piece(const int column,
                 const enum Color color,
                 enum Color board[8][8])

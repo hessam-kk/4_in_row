@@ -1,6 +1,7 @@
 #include "app.hpp"
 #include "datas.hpp"
 #include "board.hpp"
+#include "login.hpp"
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -16,6 +17,12 @@ Color matrix_8_8[8][8];
 
 void app()
 {
+    int first_player = login1(1);
+    // while (first_player == -1)
+    // {
+    //     first_player = login1();
+    // }
+    cout << "first player: " << first_player << endl;
 
     reset_board(matrix_8_8);
 
@@ -125,6 +132,8 @@ void app()
                     if (pos == -1)
                     {
                         cout << "row is full" << endl;
+                        window.close();
+                        break;
                     }
                     else
                     {
