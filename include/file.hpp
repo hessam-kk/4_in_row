@@ -25,7 +25,7 @@ void Write_To_File(unsigned short int all_moves ,const struct Player * first ,
                                                  const struct Player * second)
 {
     std::ofstream file;
-    file.open("Inf.txt" , std::ios::out);
+    file.open("Player.txt" , std::ios::out);
 
 
     if (! file)
