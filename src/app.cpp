@@ -50,6 +50,33 @@ void app()
     }
 
 
+    sf::Sprite colored_sprite;
+    sf::Texture blue_texture;
+    sf::Texture red_texture;
+    sf::Texture green_texture;
+    sf::Texture yellow_texture;
+
+    if (!blue_texture.loadFromFile("../assets/sq_blue.png"))
+        cout << "Error On Loading blue squares Image" << endl;
+    if (!red_texture.loadFromFile("../assets/sq_red.png"))
+        cout << "Error On Loading red squares Image" << endl;
+    if (!yellow_texture.loadFromFile("../assets/sq_yellow.png"))
+        cout << "Error On Loading yellow squares Image" << endl;
+    if (!green_texture.loadFromFile("../assets/sq_green.png"))
+        cout << "Error On Loading green squares Image" << endl;
+
+    colored_sprite.setTexture(green_texture);
+    colored_sprite.setPosition(x_square(0), y_square(0));
+    window.draw(colored_sprite);
+    colored_sprite.setTexture(blue_texture);
+    colored_sprite.setPosition(x_square(5), y_square(2));
+    window.draw(colored_sprite);
+    colored_sprite.setTexture(red_texture);
+    colored_sprite.setPosition(x_square(3), y_square(6));
+    window.draw(colored_sprite);
+    colored_sprite.setTexture(yellow_texture);
+    colored_sprite.setPosition(x_square(7), y_square(7));
+    window.draw(colored_sprite);
 
     while (window.isOpen())
     {
