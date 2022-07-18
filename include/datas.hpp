@@ -3,9 +3,9 @@
 enum Color 
 {
     RED ,
-    BLUE ,
+    YELLOW ,
     GREEN ,
-    YELLOW,
+    BLUE ,
     EMPTY
 };
 
