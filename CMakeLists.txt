@@ -7,5 +7,5 @@ set(SOURCES
     src/app.cpp    
 )
 include_directories(include/)
-add_executable(app ${SOURCES})
+add_executable(app )
 target_link_libraries(app sfml-window sfml-system sfml-graphics)

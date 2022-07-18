@@ -1,3 +1,0 @@
-/mnt/c/Users/Hessam/Desktop/4_in_row/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/Hessam/Desktop/4_in_row/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/Hessam/Desktop/4_in_row/build/CMakeFiles/app.dir
