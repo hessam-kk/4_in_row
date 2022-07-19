@@ -1,5 +1,6 @@
 #include "datas.hpp"
 #include "board.hpp"
+
 #include <iostream>
 #include <string>
 
@@ -8,13 +9,13 @@ int insert_piece(const int column,
                 enum Color board[8][8])
 {
     // wrong column number
-    if(column - 1 < 0 || column - 1 > 7){
+    if(column < 0 || column  > 7){
         std::cout << "Error on insert: wrong column number" << std::endl;
         return -1;
     }
     
     // column is full
-    if (board[column - 1][0] != EMPTY){
+    if (board[column][0] != EMPTY){
         std::cout << "Error on insert: Column is full" << std::endl;
         return -1;
     }
@@ -22,10 +23,10 @@ int insert_piece(const int column,
 
     for(int i = 7; i >= 0; i--)
     {
-        if(board[column - 1][i] == EMPTY)
+        if(board[column][i] == EMPTY)
         {
             std::cout << "insert on " << i << std::endl;
-            board[column - 1][i] = color;
+            board[column][i] = color;
             return i;
         }
     }

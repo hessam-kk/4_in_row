@@ -29,6 +29,8 @@ unsigned short int return_color_number(enum Color color)
         case EMPTY :
             return 4;
     }
+
+    return 4;
 }
 
 
@@ -77,5 +79,30 @@ void Write_Matrix_To_File(enum Color matrix_8_8[8][8])
         }
 
         file << std::endl;
+    }
+}
+
+
+void Read_Matrix_From_File(enum Color matrix_8_8[8][8])
+{
+    std::ifstream file;
+    file.open("Matrix.txt" , std::ios::in);
+
+    if (! file)
+    {
+        std::cerr << "Error opening file" << std::endl;
+        std::cerr << "Enter Any Key To Exit" << std::endl;
+        std::cin.ignore();
+        getchar();
+    }
+
+    for (int i = 0 ; i < 8 ; i++)
+    {
+        for (int j = 0 ; j < 8 ; j++)
+        {
+            int temp;
+            file >> temp;
+            matrix_8_8[i][j] = (enum Color)temp;
+        }
     }
 }

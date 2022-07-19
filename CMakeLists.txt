@@ -6,7 +6,7 @@ set(SOURCES
     src/board.cpp
     src/main.cpp
     src/app.cpp 
-   
+    src/login.cpp
 )
 include_directories(include/)
 add_executable(app ${SOURCES})
