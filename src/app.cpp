@@ -17,6 +17,7 @@ Color matrix_8_8[8][8];
 
 void app()
 {
+    // Login users
     int first_player = login(1);
     int second_player = login(2);
 
@@ -28,10 +29,12 @@ void app()
 
     cout << "first player: " << first_player << endl;
     cout << "second player: " << second_player << endl;
+    // end of login users
+
 
     reset_board(matrix_8_8);
 
-    sf::RenderWindow window(sf::VideoMode(window_x, window_y), "4 in row game", sf::Style::Close); // size:  (9  in  16)  * 60
+    sf::RenderWindow window(sf::VideoMode(window_x, window_y), "4 in row game", sf::Style::Close);
     window.requestFocus();
 
     // Add Background
@@ -51,18 +54,17 @@ void app()
     sf::Texture empty_texture;
     if (!empty_texture.loadFromFile("../assets/empty_sq.png"))
         cout << "Error On Loading empty squares Image" << endl;
-    if (!blue_texture.loadFromFile("../assets/sq_blue.png"))
+    if (!blue_texture.loadFromFile("../assets/sq_3.png"))
         cout << "Error On Loading blue squares Image" << endl;
-    if (!red_texture.loadFromFile("../assets/sq_red.png"))
+    if (!red_texture.loadFromFile("../assets/sq_0.png"))
         cout << "Error On Loading red squares Image" << endl;
-    if (!yellow_texture.loadFromFile("../assets/sq_yellow.png"))
+    if (!yellow_texture.loadFromFile("../assets/sq_1.png"))
         cout << "Error On Loading yellow squares Image" << endl;
-    if (!green_texture.loadFromFile("../assets/sq_green.png"))
+    if (!green_texture.loadFromFile("../assets/sq_2.png"))
         cout << "Error On Loading green squares Image" << endl;
 
-    insert_piece(0, RED, matrix_8_8);
-    // initialize the board
 
+    // add row numbers
     for (int i = 0; i < 8; i++)
     {
         sf::Sprite number_sprite;
@@ -75,6 +77,7 @@ void app()
         window.draw(number_sprite);
     }
 
+    // this part is usefull for reading from file
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
@@ -106,7 +109,11 @@ void app()
             window.draw(box_sprite);
         }
     }
-
+    
+    // True: first player, 
+    // False: second player
+    bool players_turn = true; 
+    cout << "starting interface" << endl;
     while (window.isOpen())
     {
         sf::Event event;
@@ -123,7 +130,7 @@ void app()
             {
                 sf::Sprite input_sprite;
                 sf::Texture input_texture;
-                string address = string("../assets/sq_") + string("blue") + string(".png");
+                string address = string("../assets/sq_") + (players_turn ? to_string(first_player) : to_string(second_player)) + string(".png");
                 if (!input_texture.loadFromFile(address))
                     cout << "Error On Loading colored Image" << endl;
 
@@ -140,11 +147,13 @@ void app()
                         window.close();
                         break;
                     }
+                    // successfully inserted piece 
                     else
                     {
                         input_sprite.setTexture(input_texture);
                         input_sprite.setPosition(x_square(input_column), y_square(pos));
                         window.draw(input_sprite);
+                        players_turn = !players_turn;
                     }
                 }
             }
