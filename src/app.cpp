@@ -124,7 +124,7 @@ void app()
                     cout << "correct -> " << inp_ << endl;
                     int pos = insert_piece(event.text.unicode - 48, RED, matrix_8_8);
                     input_sprite.setTexture(input_texture);
-                    input_sprite.setPosition(x_square(event.text.unicode - 48), y_square(pos));
+                    input_sprite.setPosition(x_square(event.text.unicode - 48 - 1), y_square(pos));
                     window.draw(input_sprite);
 
                 }
