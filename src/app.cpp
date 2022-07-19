@@ -17,12 +17,17 @@ Color matrix_8_8[8][8];
 
 void app()
 {
-    int first_player = login1(1);
-    // while (first_player == -1)
-    // {
-    //     first_player = login1();
-    // }
+    int first_player = login(1);
+    int second_player = login(2);
+
+    while (first_player == second_player)
+    {
+        cout << "[!] - you can't choose the same color" << endl;
+        second_player = login(2);
+    } 
+
     cout << "first player: " << first_player << endl;
+    cout << "second player: " << second_player << endl;
 
     reset_board(matrix_8_8);
 
