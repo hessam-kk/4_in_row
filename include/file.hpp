@@ -35,9 +35,8 @@ void Write_Player_Info_To_File(unsigned short int all_moves , enum Color player_
     if (! file)
     {
         std::cerr << "Error opening file" << std::endl;
-        std::cerr << "Enter Any Key To Exit" << std::endl;
-        std::cin.ignore();
-        getchar();
+        std::cerr << "App Will Be Close" << std::endl;
+        std::exit(1);
     }
     
     file << "moves : " << all_moves << std::endl;
@@ -49,6 +48,16 @@ void Write_Player_Info_To_File(unsigned short int all_moves , enum Color player_
     file.close();
 }
 
+void Set_Empty_To_All(enum Color matrix_8_8[8][8])
+{
+    for (int i = 0 ; i < 8 ; i++)
+    {
+        for (int j = 0 ; j < 8 ; j++)
+        {
+            matrix_8_8[i][j] = EMPTY;
+        }
+    }
+}
 
 void Write_Matrix_To_File(enum Color matrix_8_8[8][8])
 {
@@ -58,9 +67,8 @@ void Write_Matrix_To_File(enum Color matrix_8_8[8][8])
     if (! file)
     {
         std::cerr << "Error opening file" << std::endl;
-        std::cerr << "Enter Any Key To Exit" << std::endl;
-        std::cin.ignore();
-        getchar();
+        std::cerr << "App Will Be Close" << std::endl;
+        std::exit(1);
     }
 
     for (int i = 0 ; i < 8 ; i++)
@@ -82,10 +90,8 @@ void Read_Matrix_From_File(enum Color matrix_8_8[8][8])
 
     if (! file)
     {
-        std::cerr << "Error opening file" << std::endl;
-        std::cerr << "Enter Any Key To Exit" << std::endl;
-        std::cin.ignore();
-        getchar();
+        Set_Empty_To_All(matrix_8_8);
+        Write_Matrix_To_File(matrix_8_8);
     }
 
     for (int i = 0 ; i < 8 ; i++)
