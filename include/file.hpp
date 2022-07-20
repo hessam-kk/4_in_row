@@ -48,16 +48,6 @@ void Write_Player_Info_To_File(unsigned short int all_moves , enum Color player_
     file.close();
 }
 
-void Set_Empty_To_All(enum Color matrix_8_8[8][8])
-{
-    for (int i = 0 ; i < 8 ; i++)
-    {
-        for (int j = 0 ; j < 8 ; j++)
-        {
-            matrix_8_8[i][j] = EMPTY;
-        }
-    }
-}
 
 void Write_Matrix_To_File(enum Color matrix_8_8[8][8])
 {
