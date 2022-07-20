@@ -22,17 +22,16 @@ int insert_piece(const int column,
         return -1;
     }
 
-    for (int i = 0; i <= 7; i++)
+    for (int i = 7; i >= 0; i--)
     {
         if (board[column][i] == EMPTY)
         {
-            std::cout << "insert on " << i << std::endl;
+            std::cout << "insert on " << i << "color " << color << std::endl;
             board[column][i] = color;
             return i;
         }
     }
 
-    // board[column][0] = color;
     std::cout << "Nothing added!!" << std::endl;
     return -1;
 }

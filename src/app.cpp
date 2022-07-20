@@ -21,7 +21,7 @@ Color matrix_8_8[8][8];
 void app()
 {
     // true: realtime,
-    // false: from file 
+    // false: from file
     bool is_game_type_realtime = game_type();
 
     // Login users
@@ -83,7 +83,6 @@ void app()
         number_sprite.setPosition(x_square(i), y_square(8));
         window.draw(number_sprite);
     }
-
     cout << "game type: " << game_type << endl;
     // realtime game
     if (is_game_type_realtime)
@@ -130,12 +129,12 @@ void app()
         }
     }
 
-
     // True: first player,
     // False: second player
     bool players_turn = true;
     cout << "starting interface" << endl;
 
+    bool is_game_over = false;
     // main loop
     while (window.isOpen())
     {
@@ -148,53 +147,94 @@ void app()
                 window.close();
                 break;
             }
-
-            if (event.type == sf::Event::TextEntered)
+            if (!is_game_over)
             {
-                sf::Sprite input_sprite;
-                sf::Texture input_texture;
-                string address = string("../assets/sq_") + (players_turn ? to_string(first_player) : to_string(second_player)) + string(".png");
-                if (!input_texture.loadFromFile(address))
-                    cout << "Error On Loading colored Image" << endl;
-
-                int input_column = convert_string_to_int(event.text.unicode) - 1;
-                cout << "TextEntered -> " << input_column << endl;
-
-                if (input_column != -1 && input_column >= 0 && input_column <= 7)
+                if (event.type == sf::Event::TextEntered)
                 {
-                    int pos = insert_piece(input_column, RED, matrix_8_8);
-                    // sleep(2);
-                    // insert on a full row
-                    if (pos == -1)
+                    sf::Sprite input_sprite;
+                    sf::Texture input_texture;
+                    string address = string("../assets/sq_") + (players_turn ? to_string(first_player) : to_string(second_player)) + string(".png");
+                    if (!input_texture.loadFromFile(address))
+                        cout << "Error On Loading colored Image" << endl;
+
+                    int input_column = convert_string_to_int(event.text.unicode) - 1;
+                    cout << "TextEntered -> " << input_column << endl;
+
+                    if (input_column != -1 && input_column >= 0 && input_column <= 7)
                     {
-                        cout << "row is full" << endl;
-                        window.close();
-                        break;
-                    }
-                    // successfully inserted piece
-                    else
-                    {
-                        cout << "running here" << endl;
-                        input_sprite.setTexture(input_texture);
-                        input_sprite.setPosition(x_square(input_column), y_square(pos));
-                        window.draw(input_sprite);
-                        players_turn = !players_turn;
+                        int pos = insert_piece(input_column,
+                                               static_cast<Color>(players_turn ? first_player : second_player),
+                                               matrix_8_8);
+                        // insert on a full row
+                        if (pos == -1)
+                        {
+                            cout << "row is full" << endl;
+                            // window.close();
+                            // break;
+                        }
+                        // successfully inserted piece
+                        else
+                        {
+                            input_sprite.setTexture(input_texture);
+                            input_sprite.setPosition(x_square(input_column), y_square(pos));
+                            window.draw(input_sprite);
+                            players_turn = !players_turn;
+                        }
                     }
                 }
-            }
 
-            int valid_piece[8];
-            if (validation(valid_piece, matrix_8_8))
-            {
-                cout << "game is over" << endl;
-                cout << "winner is: " << (first_player == valid_piece[0] ? first_player : second_player) << endl;
-                for (int i = 0; i < 8; i++)
+                int matched_pieces[8];
+                if (validation(matched_pieces, matrix_8_8))
                 {
-                    cout << valid_piece[i] << ' ' << valid_piece[++i] << " ";
+                    players_turn = !players_turn; // to save the winner
+                    cout << "game is over" << endl;
+                    cout << "winner is: " << (first_player == matched_pieces[0] ? first_player : second_player)
+                         << endl;
+                    is_game_over = true;
+
+
+                    sf::Sprite game_over_sprite;
+                    sf::Texture game_over_texture;
+                    string address = string("../assets/sqw_") + (players_turn ? to_string(first_player) : to_string(second_player)) + string(".png");
+                    if (!game_over_texture.loadFromFile(address))
+                        cout << "Error On Loading game_over Image" << endl;
+                    game_over_sprite.setTexture(game_over_texture);
+                    // for (int i = 0; i < 8; i++)
+                    {
+                        game_over_sprite.setPosition(x_square(matched_pieces[0]),
+                                                     y_square(matched_pieces[1]));
+                        window.draw(game_over_sprite);
+                        game_over_sprite.setPosition(x_square(matched_pieces[2]),
+                                                     y_square(matched_pieces[3]));
+                        window.draw(game_over_sprite);
+                        game_over_sprite.setPosition(x_square(matched_pieces[4]),
+                                                     y_square(matched_pieces[5]));
+                        window.draw(game_over_sprite);
+                        game_over_sprite.setPosition(x_square(matched_pieces[6]),
+                                                     y_square(matched_pieces[7]));
+                        window.draw(game_over_sprite);
+                    }
+
+                    // for (int i = 0; i < 8; i++)
+                    // {
+                    //     cout << matched_pieces[i] << ' ' << matched_pieces[++i] << " ";
+                    // }
+                    // cout << "\n1: " << matrix_8_8[matched_pieces[0]][matched_pieces[1]] << endl;
+                    // cout << "2: " << matrix_8_8[matched_pieces[2]][matched_pieces[3]] << endl;
+                    // cout << "3: " << matrix_8_8[matched_pieces[4]][matched_pieces[5]] << endl;
+                    // cout << "4: " << matrix_8_8[matched_pieces[6]][matched_pieces[7]] << endl;
+                    // for (int i = 0; i < 8; i++)
+                    // {
+                    //     for (int j = 0; j < 8; j++)
+                    //     {
+                    //         cout << matrix_8_8[i][j] << ' ';
+                    //     }
+                    //     cout << endl;
+                    // }
+                    // sleep(10);
+                    // window.close();
+                    // break;
                 }
-                sleep(10);
-                window.close();
-                break;
             }
         }
 
