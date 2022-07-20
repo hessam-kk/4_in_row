@@ -23,6 +23,7 @@ void app()
     // true: realtime,
     // false: from file
     bool is_game_type_realtime = game_type();
+    bool is_game_over = false;
 
     // Login users
     int first_player = login(1);
@@ -93,7 +94,8 @@ void app()
     else
     {
         cout << "loading from file comming soon" << endl;
-        // Read_Matrix_From_File(matrix_8_8);
+        Read_Matrix_From_File(matrix_8_8);
+        is_game_over = true;
     }
 
     // adding squares to the window
@@ -134,7 +136,6 @@ void app()
     bool players_turn = true;
     cout << "starting interface" << endl;
 
-    bool is_game_over = false;
     // main loop
     while (window.isOpen())
     {
@@ -214,6 +215,8 @@ void app()
                                                      y_square(matched_pieces[7]));
                         window.draw(game_over_sprite);
                     }
+                   
+                    Write_Matrix_To_File(matrix_8_8);
 
                     // for (int i = 0; i < 8; i++)
                     // {
