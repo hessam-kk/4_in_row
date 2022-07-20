@@ -4,6 +4,7 @@
 #include "login.hpp"
 #include "file.hpp"
 
+#include <unistd.h>
 #include <limits>
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -32,6 +33,10 @@ void app()
         cout << "[!] - you can't choose the same color" << endl;
         second_player = login(2);
     }
+
+    // For test
+    // int first_player = 1;
+    // int second_player = 0;
 
     cout << "first player: " << first_player << endl;
     cout << "second player: " << second_player << endl;
@@ -88,8 +93,8 @@ void app()
     // load from file
     else
     {
-        cout << "loading from file" << endl;
-        Read_Matrix_From_File(matrix_8_8);
+        cout << "loading from file comming soon" << endl;
+        // Read_Matrix_From_File(matrix_8_8);
     }
 
     // adding squares to the window
@@ -155,10 +160,10 @@ void app()
                 int input_column = convert_string_to_int(event.text.unicode) - 1;
                 cout << "TextEntered -> " << input_column << endl;
 
-                if (input_column >= 0 && input_column <= 7)
+                if (input_column != -1 && input_column >= 0 && input_column <= 7)
                 {
                     int pos = insert_piece(input_column, RED, matrix_8_8);
-
+                    // sleep(2);
                     // insert on a full row
                     if (pos == -1)
                     {
@@ -169,12 +174,27 @@ void app()
                     // successfully inserted piece
                     else
                     {
+                        cout << "running here" << endl;
                         input_sprite.setTexture(input_texture);
                         input_sprite.setPosition(x_square(input_column), y_square(pos));
                         window.draw(input_sprite);
                         players_turn = !players_turn;
                     }
                 }
+            }
+
+            int valid_piece[8];
+            if (validation(valid_piece, matrix_8_8))
+            {
+                cout << "game is over" << endl;
+                cout << "winner is: " << (first_player == valid_piece[0] ? first_player : second_player) << endl;
+                for (int i = 0; i < 8; i++)
+                {
+                    cout << valid_piece[i] << ' ' << valid_piece[++i] << " ";
+                }
+                sleep(10);
+                window.close();
+                break;
             }
         }
 

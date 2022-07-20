@@ -6,3 +6,4 @@ bool reset_board(enum Color board[8][8]);
 int x_square(const int x);
 int y_square(const int y);
 int convert_string_to_int(const char str);
+bool validation(int pieces[8], const enum Color board[8][8]);
