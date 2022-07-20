@@ -26,7 +26,7 @@ void Write_Player_Info_To_File(unsigned short int all_moves , enum Color player_
 }
 
 
-void Write_Matrix_To_File(enum Color matrix_8_8[8][8])
+bool Write_Matrix_To_File(enum Color matrix_8_8[8][8])
 {
     std::ofstream file;
     file.open("Matrix.txt" , std::ios::out);
@@ -35,7 +35,7 @@ void Write_Matrix_To_File(enum Color matrix_8_8[8][8])
     {
         std::cerr << "Error opening file" << std::endl;
         std::cerr << "App Will Be Close" << std::endl;
-        std::exit(1);
+        return false
     }
 
     for (int i = 0 ; i < 8 ; i++)
@@ -45,10 +45,12 @@ void Write_Matrix_To_File(enum Color matrix_8_8[8][8])
             file << matrix_8_8[i][j] << " ";
         }
     }
+    file.close();
+    return true;
 }
 
 
-void Read_Matrix_From_File(enum Color matrix_8_8[8][8])
+bool Read_Matrix_From_File(enum Color matrix_8_8[8][8])
 {
     std::ifstream file;
     file.open("Matrix.txt" , std::ios::in);
@@ -57,7 +59,7 @@ void Read_Matrix_From_File(enum Color matrix_8_8[8][8])
     {
         std::cerr << "Error opening file" << std::endl;
         std::cerr << "App Will Be Close" << std::endl;
-        std::exit(1);
+        return false;
     }
 
     for (int i = 0 ; i < 8; i++)
@@ -69,4 +71,5 @@ void Read_Matrix_From_File(enum Color matrix_8_8[8][8])
             matrix_8_8[i][j] = static_cast<Color>(temp);
         }
     }
+    return true;
 }
