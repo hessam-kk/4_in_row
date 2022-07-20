@@ -21,3 +21,19 @@ int login(const int user)
     cout << "[+] - you chose: " << choice << endl;
     return choice;
 }
+
+bool game_type()
+{
+    cout << "insert game type!" << endl;
+    cout << "Realtime: 0    |   Load From File:1\n>>> ";
+    int choice = -1;
+    cin >> choice;
+    while (choice != 0 && choice != 1)
+    {
+        cout << "[!] - wrong input!" << endl;
+        cout << "insert game type!" << endl;
+        cout << "Realtime: 0    |   Load From File:1\n>>> ";
+        cin >> choice;
+    }
+    return choice == 0;
+}

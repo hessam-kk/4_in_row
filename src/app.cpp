@@ -2,7 +2,9 @@
 #include "datas.hpp"
 #include "board.hpp"
 #include "login.hpp"
+#include "file.hpp"
 
+#include <limits>
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -17,6 +19,10 @@ Color matrix_8_8[8][8];
 
 void app()
 {
+    // true: realtime,
+    // false: from file 
+    bool is_game_type_realtime = game_type();
+
     // Login users
     int first_player = login(1);
     int second_player = login(2);
@@ -25,14 +31,11 @@ void app()
     {
         cout << "[!] - you can't choose the same color" << endl;
         second_player = login(2);
-    } 
+    }
 
     cout << "first player: " << first_player << endl;
     cout << "second player: " << second_player << endl;
     // end of login users
-
-
-    reset_board(matrix_8_8);
 
     sf::RenderWindow window(sf::VideoMode(window_x, window_y), "4 in row game", sf::Style::Close);
     window.requestFocus();
@@ -63,7 +66,6 @@ void app()
     if (!green_texture.loadFromFile("../assets/sq_2.png"))
         cout << "Error On Loading green squares Image" << endl;
 
-
     // add row numbers
     for (int i = 0; i < 8; i++)
     {
@@ -77,7 +79,20 @@ void app()
         window.draw(number_sprite);
     }
 
-    // this part is usefull for reading from file
+    cout << "game type: " << game_type << endl;
+    // realtime game
+    if (is_game_type_realtime)
+    {
+        reset_board(matrix_8_8);
+    }
+    // load from file
+    else
+    {
+        cout << "loading from file" << endl;
+        Read_Matrix_From_File(matrix_8_8);
+    }
+
+    // adding squares to the window
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
@@ -109,11 +124,14 @@ void app()
             window.draw(box_sprite);
         }
     }
-    
-    // True: first player, 
+
+
+    // True: first player,
     // False: second player
-    bool players_turn = true; 
+    bool players_turn = true;
     cout << "starting interface" << endl;
+
+    // main loop
     while (window.isOpen())
     {
         sf::Event event;
@@ -140,14 +158,15 @@ void app()
                 if (input_column >= 0 && input_column <= 7)
                 {
                     int pos = insert_piece(input_column, RED, matrix_8_8);
-                    
+
+                    // insert on a full row
                     if (pos == -1)
                     {
                         cout << "row is full" << endl;
                         window.close();
                         break;
                     }
-                    // successfully inserted piece 
+                    // successfully inserted piece
                     else
                     {
                         input_sprite.setTexture(input_texture);

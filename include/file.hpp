@@ -1,14 +1,6 @@
 #include<fstream>
 #include<iostream>
-
-enum Color 
-{
-    RED ,
-    YELLOW ,
-    GREEN ,
-    BLUE ,
-    EMPTY
-};
+#include "datas.hpp" // for enum definition
 
 unsigned short int return_color_number(enum Color color)
 {
