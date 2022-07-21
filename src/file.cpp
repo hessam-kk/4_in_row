@@ -18,9 +18,9 @@ void Write_Player_Info_To_File(unsigned short int all_moves , enum Color player_
     
     file << "moves : " << all_moves << std::endl;
 
-    file << "player_1 : " << return_color_number(player_1) << std::endl;
+    file << "player_1 : " << player_1 << std::endl;
 
-    file << "player_2 : " << return_color_number(player_2) << std::endl;
+    file << "player_2 : " << player_2 << std::endl;
 
     file.close();
 }
@@ -35,7 +35,7 @@ bool Write_Matrix_To_File(enum Color matrix_8_8[8][8])
     {
         std::cerr << "Error opening file" << std::endl;
         std::cerr << "App Will Be Close" << std::endl;
-        return false
+        return false;
     }
 
     for (int i = 0 ; i < 8 ; i++)
